@@ -44,3 +44,25 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.login}>'
+
+
+class LoginHistory(db.Model):
+    __tablename__ = 'login_history'
+    __table_args__ = (
+        {
+            'postgresql_partition_by': 'auth_datetime',
+        }
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey(User.id), nullable=False)
+    user_agent = Column(String(250), nullable=False)
+    auth_datetime = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, user_id, user_agent):
+        self.user_id = user_id
+        self.user_agent = user_agent
+
+    def __repr__(self):
+        return f'<LoginHistory {self.id} for user {self.user_id}>'
+

@@ -5,9 +5,9 @@ from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.config import app_config
-from db.queries.user import get_user_by_login
+from db.queries.user import get_user_by_login, add_login_history_record
 from db.pg_db import db
-# from services.auth.passwords import hash_password, verify_password
+from services.auth.passwords import hash_password, verify_password
 from services.auth.jwt_init import jwt
 from db.redis_storage import jwt_redis_blocklist
 
@@ -56,21 +56,20 @@ def generate_token_pair(identity):
 
 def login_user(login: str, password: str, user_agent: str):
     user = get_user_by_login(login)
-    if not user or password != user.password:
-    # if not user or not verify_password(password=password, hashed_password=user.password):
+    if not user or not verify_password(password=password, hashed_password=user.password):
         raise UserIncorrectLoginData('Login or password is incorrect')
 
     tokens = generate_token_pair(identity=user.login)
-    # add_login_history_record(user_id=user.id, user_agent=user_agent)
+    add_login_history_record(user_id=user.id, user_agent=user_agent)
     return tokens
 
 
-# def change_user_pw(login: str, password: str, new_password: str):
-#     user = get_user_by_login(login)
-#     if verify_password(password=password, hashed_password=user.password):
-#         user.password = hash_password(new_password)
-#         db.session.commit()
-#         logging.info('User password in db %s updated successfully', login)
-#     else:
-#         logging.warning('User password in db %s is incorrect', login)
-#         raise UserIncorrectPassword('Incorrect old password')
+def change_user_pw(login: str, password: str, new_password: str):
+    user = get_user_by_login(login)
+    if verify_password(password=password, hashed_password=user.password):
+        user.password = hash_password(new_password)
+        db.session.commit()
+        logging.info('User password in db %s updated successfully', login)
+    else:
+        logging.warning('User password in db %s is incorrect', login)
+        raise UserIncorrectPassword('Incorrect old password')

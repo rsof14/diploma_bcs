@@ -15,11 +15,6 @@ from services.auth.auth_service import (
 auth_bp = Blueprint('auth', __name__)
 
 
-# @auth_bp.route('/test', methods=['GET'])
-# def login():
-#     return jsonify('Working')
-
-
 @auth_bp.route('/login', methods=['POST'])
 def login():
     json_data = request.get_json()
@@ -35,5 +30,32 @@ def login():
     except UserIncorrectLoginData as err:
         logging.warning('User with email %s denied to login: incorrect login or password', user['login'])
         return jsonify(message=str(err)), HTTPStatus.UNAUTHORIZED
+
+    return login_out.dump(tokens)
+
+
+@auth_bp.route('/check_access_token', methods=['POST'])
+@jwt_required()
+def check_access_token():
+    current_user = get_jwt().get('user_info')
+    return jsonify(current_user), HTTPStatus.OK
+
+
+@auth_bp.route('/logout', methods=['POST'])
+@jwt_required(verify_type=False)
+def logout():
+    token = get_jwt()
+    token_type = token['type']
+    logging.info('Token_type: %s', token_type)
+    add_token_to_block_list(token['jti'], token_type)
+
+    return jsonify(msg=f'{token_type} token successfully revoked')
+
+
+@auth_bp.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    identity = get_jwt_identity()
+    tokens = generate_token_pair(identity)
 
     return login_out.dump(tokens)

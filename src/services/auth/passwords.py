@@ -7,10 +7,3 @@ def hash_password(password: str):
 
 def verify_password(password: str, hashed_password) -> bool:
     return pbkdf2_sha256.verify(password, hashed_password)
-
-
-pswd = 'WfIJFntroo'
-hashed = hash_password(pswd)
-print(hashed)
-print(verify_password(pswd, hashed))
-
