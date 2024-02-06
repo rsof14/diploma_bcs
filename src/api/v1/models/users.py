@@ -8,6 +8,7 @@ from db.models import LoginHistory as LoginHistoryModel
 class UsersSchema(Schema):
     name = fields.Str(validate=validate.Length(max=100))
     login = fields.Str(validate=validate.Length(max=50))
+    role_id = fields.UUID()
     role = fields.Str(validate=validate.Length(max=100))
     created_at = fields.DateTime()
 

@@ -13,6 +13,7 @@ from services.user.user_service import (
     user_get_data,
     user_login_history
 )
+from services.role.role_service import get_role_name
 
 users_bp = Blueprint("user", __name__)
 
@@ -23,6 +24,7 @@ def get_user_info():
     current_user = get_jwt_identity()
     user_data = user_get_data(current_user)
     result = user_schema.dump(user_data)
+    result['role'] = get_role_name(result['role_id'])
 
     return jsonify(result), HTTPStatus.OK
 

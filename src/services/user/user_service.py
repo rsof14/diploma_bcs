@@ -9,10 +9,6 @@ from db.queries.user import (
     user_admin_all,
     get_user_by_id
 )
-from db.pg_db import db
-from services.role.role_service import get_role_by_name, RoleNotFound
-from uuid import UUID
-from sqlalchemy.exc import DataError
 
 
 class LoginAlreadyExists(Exception):
@@ -43,15 +39,3 @@ def get_paginated(paginated_obj: Pagination):
         }
     }
 
-
-def get_user_admin_info():
-    return user_admin_all()
-
-
-def get_user_info(user_id: UUID):
-    user = get_user_by_id(user_id)
-    if not user:
-        raise UserNotFound('User not found')
-    logging.info('User in db %s found', user_id)
-
-    return user
