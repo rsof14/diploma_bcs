@@ -1,0 +1,117 @@
+.auth-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.auth-group1 {
+  width: 402px;
+  height: 428px;
+  display: flex;
+  z-index: 100;
+  position: relative;
+  box-shadow: 5px 5px 90px 100px #006aef;
+  align-items: flex-end;
+  flex-shrink: 1;
+  animation-name: none;
+  animation-delay: 0s;
+  justify-content: center;
+  background-color: rgba(0, 106, 239, 1);
+  animation-duration: 300ms;
+  animation-direction: normal;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+}
+.auth-rectangle2 {
+  top: 52px;
+  left: 49px;
+  width: 375px;
+  height: 400px;
+  position: absolute;
+  border-radius: 5px;
+}
+.auth-text {
+  top: 184px;
+  left: 75px;
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.auth-text2 {
+  top: 282px;
+  left: 75px;
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.auth-textinput {
+  top: 307px;
+  left: 71px;
+  width: 323px;
+  height: 41px;
+  position: absolute;
+  border-color: #8e8e8e;
+  border-radius: 5px;
+}
+.auth-text4 {
+  top: 106px;
+  left: 104px;
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  position: absolute;
+  font-size: 30px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.auth-textinput1 {
+  top: 209px;
+  left: 71px;
+  width: 323px;
+  height: 41px;
+  position: absolute;
+  border-color: #8e8e8e;
+  border-radius: 5px;
+}
+.auth-line1 {
+  top: 218px;
+  left: 92px;
+  width: 26px;
+  height: 1px;
+  position: absolute;
+}
+.auth-button {
+  top: 386px;
+  left: 167px;
+  color: #ffffff;
+  width: 149px;
+  height: 39px;
+  position: absolute;
+  font-family: "Montserrat";
+  border-width: 0px;
+  border-radius: 5px;
+  background-color: #006aef;
+}

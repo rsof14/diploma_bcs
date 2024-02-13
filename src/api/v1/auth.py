@@ -1,7 +1,7 @@
 import logging
 from http import HTTPStatus
 
-from flask import jsonify, request, Blueprint
+from flask import jsonify, request, Blueprint, render_template
 from flask_jwt_extended import get_jwt_identity, get_jwt, jwt_required
 from marshmallow import ValidationError
 from api.v1.models.auth import login_in, login_out
@@ -59,3 +59,8 @@ def refresh():
     tokens = generate_token_pair(identity)
 
     return login_out.dump(tokens)
+
+
+@auth_bp.route('/', methods=['GET'])
+def home():
+    return render_template('auth/login/index.html')

@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_migrate import upgrade
@@ -49,10 +50,11 @@ def create_app():
 
 print('started')
 app = create_app()
+CORS(app)
 
 
-@app.before_request
-def before_request():
-    request_id = request.headers.get('X-Request-Id')
-    if not request_id:
-        raise RuntimeError('request id is required')
+# @app.before_request
+# def before_request():
+#     request_id = request.headers.get('X-Request-Id')
+#     if not request_id:
+#         raise RuntimeError('request id is required')
