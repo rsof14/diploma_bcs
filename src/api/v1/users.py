@@ -1,7 +1,7 @@
 import logging
 from http import HTTPStatus
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
 
@@ -25,8 +25,11 @@ def get_user_info():
     user_data = user_get_data(current_user)
     result = user_schema.dump(user_data)
     result['role'] = get_role_name(result['role_id'])
+    atoken = request.cookies.get('access_token_cookie')
+    print(atoken)
 
-    return jsonify(result), HTTPStatus.OK
+    # return jsonify(result), HTTPStatus.OK
+    return render_template('auth/profile/profile.html', user_name=result['name'].partition(' ')[0], user_full_name=result['name'], user_login=result['login'], user_role=result['role'], access_token=atoken)
 
 
 @users_bp.route('/profile/login_history', methods=['GET'])

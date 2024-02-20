@@ -55,6 +55,7 @@ CORS(app)
 
 # @app.before_request
 # def before_request():
+#     app.jinja_env.cache = {}
 #     request_id = request.headers.get('X-Request-Id')
 #     if not request_id:
 #         raise RuntimeError('request id is required')

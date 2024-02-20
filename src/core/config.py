@@ -30,11 +30,23 @@ class AppConfig(BaseSettings):
     JWT_SECRET_KEY: str = Field(..., env='JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRES: datetime.timedelta = Field(..., env='ACCESS_TOKEN_TTL_IN_MINUTES')
     JWT_REFRESH_TOKEN_EXPIRES: datetime.timedelta = Field(..., env='REFRESH_TOKEN_TTL_IN_DAYS')
+    JWT_TOKEN_LOCATION: list = ['headers', 'query_string', 'cookies']
+    JWT_HEADER_NAME = "X-Forwarded-Authorization"
+    JWT_COOKIE_CSRF_PROTECT = False
 
+    SESSION_COOKIE_DOMAIN: str = 'localhost:8000/api/v1/user/profile'
+    ENABLE_CORS = True
+    CORS_OPTIONS = {
+        'supports_credentials': True,
+        'allow_headers': '*',
+        'resources': '*'
+    }
     RATELIMIT_STORAGE_URL: RedisDsn = f'redis://{redis_conf.host}:{redis_conf.port}/0'
     RATELIMIT_STRATEGY: str = 'fixed-window'
     RATELIMIT_HEADERS_ENABLED: bool = True
     RATELIMIT_DEFAULT: str = '20/minute'
+
+    TEMPLATES_AUTO_RELOAD: bool = True
 
     # enable_tracer: bool = True
 

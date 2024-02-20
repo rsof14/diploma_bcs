@@ -28,7 +28,7 @@
 
       }
     </style>
-    <script src="{{ url_for('static',filename='styles/login/index.js') }}"></script>
+<!--    <script src="{{ url_for('static',filename='styles/login/index.js') }}"></script>-->
     <link
       rel="stylesheet"
       href="https://unpkg.com/animate.css@4.1.1/animate.css"
@@ -102,7 +102,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login/style.css') }}"/>
     <div>
       <link href="{{ url_for('static',filename='styles/login/index.css') }}" rel="stylesheet" />
-
+   <form action="{{ url_for('auth.login') }}" method="post">
       <div class="auth-container">
         <div class="auth-group1">
           <img
@@ -115,19 +115,22 @@
           <input
             type="password"
             id="password"
-            name="password"
-            required="true"
-            class="auth-textinput input"
-          />
+            name='password'
+            class="auth-textinput input"/>
+<!--            required="true"-->
+<!--          />-->
           <span class="auth-text4"><span>Войти в систему</span></span>
           <input
-            type="text"
+            type='text'
             id="login"
-            name="login"
-            required="true"
+            name='login'
             placeholder="ivan_ivanov@bcs.ru"
             class="auth-textinput1 input"
           />
+<!--            required="true"-->
+<!--            placeholder="ivan_ivanov@bcs.ru"-->
+<!--            class="auth-textinput1 input"-->
+<!--          />-->
           <img
             alt="Line1244"
             src="{{ url_for('static',filename='styles/login/public/external/line1244-77q.svg')}}"
@@ -143,15 +146,16 @@
               <span>ВОЙТИ</span>
               <br />
             </span>
-            <script>
-              const login_button = document.getElementById('login_button');
-              if (login_button) {
-                login_button.addEventListener('click', login_user);
-              }
-            </script>
+<!--            <script>-->
+<!--              const login_button = document.getElementById('login_button');-->
+<!--              if (login_button) {-->
+<!--                login_button.addEventListener('click', login_user);-->
+<!--              }-->
+<!--            </script>-->
           </button>
         </div>
       </div>
+   </form>
     </div>
   </body>
 </html>
