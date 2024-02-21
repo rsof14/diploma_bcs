@@ -66,3 +66,33 @@ class LoginHistory(db.Model):
     def __repr__(self):
         return f'<LoginHistory {self.id} for user {self.user_id}>'
 
+
+class SystemObjects(db.Model):
+    __tablename__ = 'system_objects'
+
+    object_name = Column(String(200), primary_key=True, unique=True, nullable=False)
+    ru_name = Column(String(200), nullable=False, unique=True)
+    display_in_menu = Column(Boolean)
+
+    def __init__(self, name):
+        self.object_name = name
+
+    def __repr__(self):
+        return f'<System object {self.object_name}>'
+
+
+class ObjectsPermissions(db.Model):
+    __tablename__ = 'objects_permissions'
+
+    object = Column(String(200), primary_key=True, nullable=False)
+    role_id = Column(UUID(as_uuid=True), primary_key=True, nullable=False)
+    permission = Column(String(10), nullable=False)
+    strategy_type = Column(String(80))
+    id = Column(UUID(as_uuid=True))
+
+    def __init__(self, object, role):
+        self.object = object
+        self.role_id = role
+
+    def __repr__(self):
+        return f'<Object permission {self.permission} for {self.object} by role {self.role_id}>'

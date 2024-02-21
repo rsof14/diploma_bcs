@@ -13,7 +13,7 @@ from services.user.user_service import (
     user_get_data,
     user_login_history
 )
-from services.role.role_service import get_role_name
+from services.role.role_service import get_role_name, get_role_permission_objects
 
 users_bp = Blueprint("user", __name__)
 
@@ -25,11 +25,22 @@ def get_user_info():
     user_data = user_get_data(current_user)
     result = user_schema.dump(user_data)
     result['role'] = get_role_name(result['role_id'])
-    atoken = request.cookies.get('access_token_cookie')
-    print(atoken)
+    params = {
+        'user_name': result['name'].partition(' ')[0],
+        'user_full_name': result['name'],
+        'user_login': result['login'],
+        'user_role': result['role'],
+        'access_token': request.cookies.get('access_token_cookie')
+    }
+    permissions = get_role_permission_objects(result['role_id'])
+    print(permissions)
+    print(type(permissions))
+    for op in permissions:
+        print(op.object)
+        print(op.ru_name)
+        print(op.display_in_menu)
 
-    # return jsonify(result), HTTPStatus.OK
-    return render_template('auth/profile/profile.html', user_name=result['name'].partition(' ')[0], user_full_name=result['name'], user_login=result['login'], user_role=result['role'], access_token=atoken)
+    return render_template('auth/profile/profile.html', **params)
 
 
 @users_bp.route('/profile/login_history', methods=['GET'])

@@ -115,3 +115,9 @@
   border-radius: 5px;
   background-color: #006aef;
 }
+.auth-button:hover {
+  background-color: rgba(0, 106, 239, 0.74);
+}
+.auth-button:active {
+  background-color: #0152bd;
+}

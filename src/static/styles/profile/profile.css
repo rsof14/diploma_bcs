@@ -60,8 +60,8 @@
   justify-content: flex-start;
 }
 .profile-sidebar {
-  width: 165px;
-  height: auto;
+  width: 13vw;
+  height: 100vh;
   display: flex;
   padding: var(--dl-space-space-twounits);
   z-index: 100;
@@ -82,17 +82,17 @@
   animation-timing-function: ease;
 }
 .profile-nav {
-  width: 165px;
-  height: 485px;
+  width: 13vw;
+  height: 60vh;
   display: flex;
   align-self: center;
   align-items: flex-start;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .profile-link {
   color: var(--dl-color-gray-black);
-  width: 165px;
+  width: 100%;
   font-size: 20px;
   align-self: flex-start;
   font-style: normal;
@@ -113,7 +113,7 @@
 }
 .profile-link01 {
   color: var(--dl-color-gray-black);
-  width: 165px;
+  width: 100%;
   font-size: 20px;
   font-style: normal;
   transition: 0.3s;
@@ -129,7 +129,7 @@
   background-color: #D9D9D9;
 }
 .profile-link02 {
-  width: 165px;
+  width: 100%;
   font-size: 20px;
   font-style: normal;
   transition: 0.3s;
@@ -145,7 +145,7 @@
   background-color: #D9D9D9;
 }
 .profile-link03 {
-  width: 165px;
+  width: 100%;
   font-size: 20px;
   font-style: normal;
   transition: 0.3s;
@@ -161,7 +161,7 @@
   background-color: #D9D9D9;
 }
 .profile-link04 {
-  width: 165px;
+  width: 100%;
   font-size: 20px;
   font-style: normal;
   transition: 0.3s;
@@ -177,7 +177,7 @@
   background-color: #D9D9D9;
 }
 .profile-link05 {
-  width: 165px;
+  width: 100%;
   font-size: 18px;
   font-style: normal;
   transition: 0.3s;
@@ -193,31 +193,36 @@
   background-color: #D9D9D9;
 }
 .profile-profile {
-  width: 165%;
-  height: 138px;
+  left: 0px;
+  width: 13vw;
+  bottom: 33px;
+  height: 14vh;
   display: flex;
-  align-self: center;
+  position: absolute;
   align-items: center;
   padding-top: var(--dl-space-space-unit);
   border-color: var(--dl-color-gray-900);
   border-width: 1px;
-  flex-direction: row;
   justify-content: flex-start;
   border-left-width: 0px;
   border-right-width: 0px;
   border-bottom-width: 0px;
 }
 .profile-container1 {
-  width: 165%;
+  flex: 1;
+  left: 0px;
+  width: 13vw;
+  bottom: -17px;
+  height: 14vh;
   display: flex;
+  position: absolute;
   align-self: flex-start;
   align-items: flex-start;
-  margin-left: 0px;
   flex-direction: column;
   justify-content: space-between;
 }
 .profile-link06 {
-  width: 165px;
+  width: 100%;
   font-size: 18px;
   font-style: normal;
   transition: 0.3s;
@@ -233,7 +238,7 @@
   background-color: #D9D9D9;
 }
 .profile-link07 {
-  width: 165px;
+  width: 100%;
   font-size: 18px;
   font-style: normal;
   transition: 0.3s;
@@ -248,10 +253,10 @@
   background-color: #D9D9D9;
 }
 .profile-header {
-  width: 100%;
+  width: 100vw;
   height: 79px;
   display: flex;
-  max-width: var(--dl-size-size-maxwidth);
+  max-width: 100vw;
   align-self: flex-start;
   box-shadow: 0px 5px 10px 0px #b9b8b8;
   align-items: center;
@@ -287,6 +292,12 @@
   font-family: "Montserrat";
   font-weight: 700;
   text-decoration: none;
+}
+.profile-link08:hover {
+  color: rgba(0, 106, 239, 0.74);
+}
+.profile-link08:active {
+  color: #0152bd;
 }
 .profile-btn-group {
   border: 2px dashed rgba(120, 120, 120, 0.4);
@@ -355,12 +366,11 @@
 }
 .profile-header1 {
   top: 78px;
-  right: -45px;
-  width: 100%;
+  left: 0px;
+  width: 100vw;
   height: 280px;
   display: flex;
   position: absolute;
-  max-width: auto;
   align-items: center;
   padding-top: var(--dl-space-space-twounits);
   padding-left: var(--dl-space-space-threeunits);
@@ -373,8 +383,8 @@
   top: 189px;
   left: 0px;
   right: 0px;
-  width: 762px;
-  height: 485px;
+  width: 63vw;
+  height: 65vh;
   margin: auto;
   display: flex;
   position: absolute;
@@ -402,8 +412,11 @@
 }
 .profile-textinput {
   width: 100%;
-  height: var(--dl-size-size-small);
+  height: 6vh;
   border-color: var(--dl-color-gray-700);
+  font-size: 18px;
+  font-family: "Montserrat";
+  font-weight: 400;
 }
 .profile-text14 {
   font-size: 24px;
@@ -415,8 +428,11 @@
 }
 .profile-textinput1 {
   width: 100%;
-  height: var(--dl-size-size-small);
+  height: 6vh;
   border-color: var(--dl-color-gray-700);
+  font-size: 18px;
+  font-family: "Montserrat";
+  font-weight: 400;
 }
 .profile-text15 {
   font-size: 24px;
@@ -428,8 +444,11 @@
 }
 .profile-textinput2 {
   width: 100%;
-  height: var(--dl-size-size-small);
+  height: 6vh;
   border-color: var(--dl-color-gray-700);
+  font-size: 18px;
+  font-family: "Montserrat";
+  font-weight: 400;
 }
 .profile-link09 {
   width: auto;
