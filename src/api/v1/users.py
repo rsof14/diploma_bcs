@@ -18,15 +18,13 @@ from services.role.role_service import get_role_name, get_role_permission_object
 users_bp = Blueprint("user", __name__)
 
 
-@users_bp.route('/profile', methods=['GET'])
-@jwt_required()
-def get_user_info():
-    current_user = get_jwt_identity()
+def get_users_params(current_user):
     user_data = user_get_data(current_user)
     result = user_schema.dump(user_data)
     result['role'] = get_role_name(result['role_id'])
     permissions = get_role_permission_objects(result['role_id'])
     params = {
+        # Поправить определение имени, мб поделить фио на поля в бд
         'user_name': result['name'].partition(' ')[0],
         'user_full_name': result['name'],
         'user_login': result['login'],
@@ -34,8 +32,28 @@ def get_user_info():
         'access_token': request.cookies.get('access_token_cookie'),
         'permissions': permissions
     }
+    return params
 
-    return render_template('auth/profile/profile.html', **params)
+
+@users_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def get_user_info():
+    current_user = get_jwt_identity()
+    # user_data = user_get_data(current_user)
+    # result = user_schema.dump(user_data)
+    # result['role'] = get_role_name(result['role_id'])
+    # permissions = get_role_permission_objects(result['role_id'])
+    # params = {
+    #     # Поправить определение имени, мб поделить фио на поля в бд
+    #     'user_name': result['name'].partition(' ')[0],
+    #     'user_full_name': result['name'],
+    #     'user_login': result['login'],
+    #     'user_role': result['role'],
+    #     'access_token': request.cookies.get('access_token_cookie'),
+    #     'permissions': permissions
+    # }
+
+    return render_template('auth/profile/profile.html', **get_users_params(current_user))
 
 
 @users_bp.route('/profile/login_history', methods=['GET'])
@@ -48,21 +66,29 @@ def get_login_history():
     return jsonify(result), HTTPStatus.OK
 
 
-@users_bp.route('/profile/change_password', methods=['PUT'])
+@users_bp.route('/profile/change_password', methods=['PUT', 'POST'])
 @jwt_required()
 def change_user_password():
     current_user = get_jwt_identity()
-    user_password_data = request.get_json()
-    try:
-        body = change_password.load(user_password_data)
-    except ValidationError as err:
-        return err.messages, HTTPStatus.BAD_REQUEST
+    if request.method == 'POST' and request.form.get('old_password') and request.form.get('new_password'):
+        user_password_data = request.form.to_dict()
+        del user_password_data['change_password_button']
+        print(user_password_data)
+        # user_password_data = request.get_json()
+        try:
+            body = change_password.load(user_password_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.BAD_REQUEST
 
-    try:
-        change_user_pw(current_user, body['old_password'], body['new_password'])
-        logging.info('User with email %s updated password successfully', current_user)
-    except UserIncorrectPassword as err:
-        logging.warning('User with email %s denied to change password: incorrect old password', current_user)
-        return jsonify(message=str(err)), HTTPStatus.CONFLICT
+        try:
+            change_user_pw(current_user, body['old_password'], body['new_password'], body['new_password_again'])
+            logging.info('User with email %s updated password successfully', current_user)
+        except UserIncorrectPassword as err:
+            logging.warning('User with email %s denied to change password: incorrect old password', current_user)
+            return jsonify(message=str(err)), HTTPStatus.CONFLICT
+        params = get_users_params(current_user)
+        params['message'] = 'User password updated successfully'
 
-    return {'message': 'User password updated successfully'}, HTTPStatus.CREATED
+        return render_template('auth/profile/change_password.html', **params)
+
+    return render_template('auth/profile/change_password.html', **get_users_params(current_user))

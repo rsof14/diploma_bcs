@@ -38,4 +38,3 @@ def get_paginated(paginated_obj: Pagination):
             'pages_total': paginated_obj.pages
         }
     }
-

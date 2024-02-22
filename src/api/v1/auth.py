@@ -35,31 +35,12 @@ def login():
         except UserIncorrectLoginData as err:
             logging.warning('User with email %s denied to login: incorrect login or password', user['login'])
             return jsonify(message=str(err)), HTTPStatus.UNAUTHORIZED
-        # return login_out.dump(tokens)
 
         response = redirect(next_url)
-        # response.headers['X-Forwarded-Authorization'] = f'Bearer {tokens["access_token"]}'
         set_access_cookies(response, tokens["access_token"])
         return response
 
     return render_template('auth/login/index.html')
-
-
-# json_data = request.get_json()
-#        user_agent = request.headers.get('User-Agent', default='unknown device')
-#        try:
-#            user = login_in.load(json_data)
-#        except ValidationError as err:
-#            return jsonify(message=err.messages), HTTPStatus.UNPROCESSABLE_ENTITY
-#
-#        try:
-#            tokens = login_user(user['login'], user['password'], user_agent=user_agent)
-#            logging.info('User with email %s successfully logged in', user['login'])
-#        except UserIncorrectLoginData as err:
-#            logging.warning('User with email %s denied to login: incorrect login or password', user['login'])
-#            return jsonify(message=str(err)), HTTPStatus.UNAUTHORIZED
-#
-#        return login_out.dump(tokens)
 
 
 @auth_bp.route('/check_access_token', methods=['POST'])
@@ -90,13 +71,13 @@ def refresh():
     return login_out.dump(tokens)
 
 
-@auth_bp.route('/', methods=['GET'])
-def home():
-    return render_template('auth/login/index.html')
-
-
-@auth_bp.route('/test', methods=['GET'])
-def test():
-    print('!!!!!!!!!!')
-    return render_template('auth/profile/profile.html')
-    # return jsonify(msg='ok')
+# @auth_bp.route('/', methods=['GET'])
+# def home():
+#     return render_template('auth/login/index.html')
+#
+#
+# @auth_bp.route('/test', methods=['GET'])
+# def test():
+#     print('!!!!!!!!!!')
+#     return render_template('auth/profile/profile.html')
+#     # return jsonify(msg='ok')

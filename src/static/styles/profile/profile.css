@@ -417,6 +417,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
+  padding-top: var(--dl-space-space-unit);
 }
 .profile-text14 {
   font-size: 24px;
@@ -433,6 +434,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
+  padding-top: var(--dl-space-space-unit);
 }
 .profile-text15 {
   font-size: 24px;
@@ -449,6 +451,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
+  padding-top: var(--dl-space-space-unit);
 }
 .profile-link09 {
   width: auto;
@@ -510,4 +513,54 @@
   .profile-header2 {
     padding: var(--dl-space-space-unit);
   }
+}
+
+.auth-button {
+  top: 273px;
+  left: 49px;
+  color: #ffffff;
+  width: 149px;
+  height: 39px;
+  position: absolute;
+  font-family: "Montserrat";
+  border-width: 0px;
+  border-radius: 5px;
+  background-color: #006aef;
+}
+.auth-button:hover {
+  background-color: rgba(0, 106, 239, 0.74);
+}
+.auth-button:active {
+  background-color: #0152bd;
+}
+
+.auth-button02 {
+  top: 337px;
+  left: 49px;
+  color: #ffffff;
+  width: 149px;
+  height: 39px;
+  position: absolute;
+  font-family: "Montserrat";
+  border-width: 0px;
+  border-radius: 5px;
+  background-color: #006aef;
+}
+.auth-button:hover {
+  background-color: rgba(0, 106, 239, 0.74);
+}
+.auth-button:active {
+  background-color: #0152bd;
+}
+
+.profile-text16 {
+  font-size: 16px;
+  font-style: normal;
+  font-family: "Montserrat";
+  font-weight: 400;
+  color: #236941;
+  top: 390px;
+  left: 49px;
+  padding-top: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-oneandhalfunits);
 }

@@ -73,6 +73,7 @@ class SystemObjects(db.Model):
     object_name = Column(String(200), primary_key=True, unique=True, nullable=False)
     ru_name = Column(String(200), nullable=False, unique=True)
     display_in_menu = Column(Boolean)
+    link = Column(Text)
 
     def __init__(self, name):
         self.object_name = name

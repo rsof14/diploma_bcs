@@ -16,6 +16,7 @@ class UsersSchema(Schema):
 class ChangePassword(Schema):
     old_password = fields.Str(required=True, validate=validate.Length(max=50))
     new_password = fields.Str(required=True, validate=validate.Length(max=50))
+    new_password_again = fields.Str(required=True, validate=validate.Length(max=50))
 
 
 class LoginHistory(ma.SQLAlchemyAutoSchema):

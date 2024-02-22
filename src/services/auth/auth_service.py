@@ -20,6 +20,10 @@ class UserIncorrectPassword(Exception):
     ...
 
 
+class PasswordsDoNotMatch(Exception):
+    ...
+
+
 # Callback function to check if a JWT exists in the redis blocklist
 @jwt.token_in_blocklist_loader
 def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
@@ -64,12 +68,16 @@ def login_user(login: str, password: str, user_agent: str):
     return tokens
 
 
-def change_user_pw(login: str, password: str, new_password: str):
+def change_user_pw(login: str, password: str, new_password: str, new_password_again: str):
     user = get_user_by_login(login)
     if verify_password(password=password, hashed_password=user.password):
-        user.password = hash_password(new_password)
-        db.session.commit()
-        logging.info('User password in db %s updated successfully', login)
+        if new_password == new_password_again:
+            user.password = hash_password(new_password)
+            db.session.commit()
+            logging.info('User password in db %s updated successfully', login)
+        else:
+            logging.warning('User new password does not match to new password again')
+            raise PasswordsDoNotMatch('Incorrect new password entered again')
     else:
         logging.warning('User password in db %s is incorrect', login)
         raise UserIncorrectPassword('Incorrect old password')
