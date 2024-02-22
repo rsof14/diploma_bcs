@@ -125,55 +125,16 @@
       <div class="profile-container">
         <div class="profile-sidebar">
           <nav id="navigation" class="profile-nav">
-            <a
-              href="https://localhost:8000/api/v1/user/profile"
-              rel="noreferrer noopener"
-              class="profile-link"
-            >
-              <span>Dashboard</span>
-              <span>!</span>
-              <br />
-            </a>
+            {% for item in permissions %}
             <a
               href="https://example.com"
               rel="noreferrer noopener"
               class="profile-link01"
             >
-              <span>Операции по счетам!</span>
+              <span>{{item.ru_name}}</span>
               <br />
             </a>
-            <a
-              href="https://example.com"
-              rel="noreferrer noopener"
-              class="profile-link02"
-            >
-              <span>Стратегии!</span>
-              <br />
-            </a>
-            <a
-              href="https://example.com"
-              rel="noreferrer noopener"
-              class="profile-link03"
-            >
-              <span>Портфели!</span>
-              <br />
-            </a>
-            <a
-              href="https://example.com"
-              rel="noreferrer noopener"
-              class="profile-link04"
-            >
-              <span>Клиенты!</span>
-              <br />
-            </a>
-            <a
-              href="https://example.com"
-              rel="noreferrer noopener"
-              class="profile-link05"
-            >
-              <span>Справочники!</span>
-              <br />
-            </a>
+            {% endfor %}
           </nav>
           <div class="profile-profile">
             <div class="profile-container1">
@@ -282,7 +243,7 @@
             name="full_name"
             id="full_name"
             class="profile-textinput input"
-            value={{user_full_name}}
+            value="{{user_full_name}}"
             readonly
           />
           <label class="profile-text14">Логин</label>
@@ -291,7 +252,7 @@
             name="login"
             id="login"
             class="profile-textinput1 input"
-            value={{user_login}}
+            value="{{user_login}}"
             readonly
           />
           <label class="profile-text15">Роль в системе</label>
@@ -300,7 +261,7 @@
             name="role"
             id="role"
             class="profile-textinput2 input"
-            value={{user_role}}
+            value="{{user_role}}"
             readonly
           />
           <a

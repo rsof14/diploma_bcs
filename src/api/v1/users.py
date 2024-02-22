@@ -25,20 +25,15 @@ def get_user_info():
     user_data = user_get_data(current_user)
     result = user_schema.dump(user_data)
     result['role'] = get_role_name(result['role_id'])
+    permissions = get_role_permission_objects(result['role_id'])
     params = {
         'user_name': result['name'].partition(' ')[0],
         'user_full_name': result['name'],
         'user_login': result['login'],
         'user_role': result['role'],
-        'access_token': request.cookies.get('access_token_cookie')
+        'access_token': request.cookies.get('access_token_cookie'),
+        'permissions': permissions
     }
-    permissions = get_role_permission_objects(result['role_id'])
-    print(permissions)
-    print(type(permissions))
-    for op in permissions:
-        print(op.object)
-        print(op.ru_name)
-        print(op.display_in_menu)
 
     return render_template('auth/profile/profile.html', **params)
 
