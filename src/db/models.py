@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, String, Text, ForeignKeyConstraint
+from sqlalchemy import Boolean, Column, DateTime, Date, ForeignKey, String, Text, ForeignKeyConstraint, JSON
 from sqlalchemy.dialects.postgresql import UUID
 
 from db.pg_db import db
@@ -97,3 +97,48 @@ class ObjectsPermissions(db.Model):
 
     def __repr__(self):
         return f'<Object permission {self.permission} for {self.object} by role {self.role_id}>'
+
+
+class Portfolio(db.Model):
+    __tablename__ = 'portfolio'
+
+    account = Column(String(8), primary_key=True, unique=True, nullable=False)
+    customer_id = Column(UUID(as_uuid=True), nullable=False)
+    strategy_id = Column(UUID(as_uuid=True), nullable=False)
+    structure = Column(JSON)
+    asset_manager = Column(UUID(as_uuid=True))
+    creation_date = Column(Date, nullable=False)
+    updated = Column(Boolean)
+
+    def __init__(self, account):
+        self.account = account
+
+    def __repr__(self):
+        return f'<Portfolio {self.account}>'
+
+
+class Strategy(db.Model):
+    __tablename__ = 'strategy'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, unique=True, nullable=False)
+    name = Column(Text, nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f'<Strategy {self.name}>'
+
+
+class Customer(db.Model):
+    __tablename__ = 'customer'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, unique=True, nullable=False)
+    name = Column(Text, nullable=False)
+    branch = Column(Text)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f'<Customer {self.name}>'

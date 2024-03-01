@@ -117,12 +117,16 @@
       href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
     />
      <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!--  <script type="text/javascript" src="table-sort.js"></script>-->
+      <script type="text/javascript" src="{{ url_for('static',filename='styles/operations/table-sort.js') }}"></script>
   </head>
   <body>
-    <link rel="stylesheet" href="style.css" />
+<!--    <link rel="stylesheet" href="style.css" />-->
+     <link rel="stylesheet" href="{{ url_for('static',filename='styles/operations/style.css') }}" />
     <div>
-      <link href="profile.css" rel="stylesheet" />
-
+<!--      <link href="profile.css" rel="stylesheet" />-->
+<link href="{{ url_for('static',filename='styles/operations/profile.css') }}" rel="stylesheet" />
       <div class="profile-container">
         <div class="profile-sidebar">
           <nav id="navigation" class="profile-nav">
@@ -193,61 +197,6 @@
           </div>
         </header>
         <figure data-role="Accordion" class="profile-header1"></figure>
-<!--        <figure data-role="Accordion" class="profile-header2">-->
-<!--          <form action="{{ url_for('user.change_user_password') }}" method="post">-->
-<!--          <label class="profile-text13">Старый пароль</label>-->
-<!--          <input-->
-<!--            type="password"-->
-<!--            name="old_password"-->
-<!--            id="old_password"-->
-<!--            class="profile-textinput input"-->
-<!--            required="required"-->
-<!--          />-->
-<!--          <label class="profile-text14">Новый пароль</label>-->
-<!--          <input-->
-<!--            type="password"-->
-<!--            name="new_password"-->
-<!--            id="new_password"-->
-<!--            class="profile-textinput1 input"-->
-<!--            required="required"-->
-<!--          />-->
-<!--          <label class="profile-text15">Повторите пароль</label>-->
-<!--          <input-->
-<!--            type="password"-->
-<!--            name="new_password_again"-->
-<!--            id="new_password_again"-->
-<!--            class="profile-textinput2 input"-->
-<!--            required="required"-->
-<!--          />-->
-<!--            <div>-->
-<!--            <button-->
-<!--            id="change_password_button"-->
-<!--            name="change_password_button"-->
-<!--            type="submit"-->
-<!--            class="auth-button button"-->
-<!--          >-->
-<!--            <span>-->
-<!--              <span>Сохранить</span>-->
-<!--              <br />-->
-<!--            </span>-->
-<!--            </button>-->
-<!--            <button-->
-<!--            id="back"-->
-<!--            name="back"-->
-<!--            type="button"-->
-<!--            class="auth-button02 button"-->
-<!--            onclick="history.back()"-->
-<!--          >-->
-<!--            <span>-->
-<!--              <span>Назад</span>-->
-<!--              <br />-->
-<!--            </span>-->
-<!--            </button>-->
-<!--               <label class="profile-text16">{{message}}</label>-->
-<!--          </div>-->
-<!--          </form>-->
-<!--        </figure>-->
-<!--        <table class="table table-striped">-->
           <button
                       id="form_operations"
                     name="form_operations"
@@ -261,150 +210,37 @@
               </button>
           <div class="operations-container4">
               <div class="operations-container5">
-            <table class="table">
+            <table id="OperationTable" class="table">
                 <thead>
     <tr>
         <th>
             <input type="checkbox" class="select-all checkbox"  name="select-all" />
         </th>
-        <th>Портфель</th>
-        <th>Стратегия</th>
-        <th>Клиент</th>
-        <th>Обновлено</th>
+        <th class="sortable">Портфель</th>
+        <th class="sortable">Стратегия</th>
+        <th class="sortable">Клиент</th>
+        <th class="sortable">Обновлено</th>
     </tr>
                 </thead>
                 <tbody class="table-hover">
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 1</td>
-        <td>strategy 1</td>
-        <td>customer 1</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 2</td>
-        <td>strategy 2</td>
-        <td>customer 2</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 3</td>
-        <td>strategy 3</td>
-        <td>customer 3</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 4</td>
-        <td>strategy 4</td>
-        <td>customer 4</td>
-        <td>true</td>
-    </tr>
+                {% for item in portfolios %}
                 <tr>
         <td>
             <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
         </td>
-        <td>portfolio 1</td>
-        <td>strategy 1</td>
-        <td>customer 1</td>
-        <td>true</td>
+        <td>{{item.account}}</td>
+        <td>{{item.strategy}}</td>
+        <td>{{item.customer}}</td>
+        <td>{{item.updated}}</td>
     </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 2</td>
-        <td>strategy 2</td>
-        <td>customer 2</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 3</td>
-        <td>strategy 3</td>
-        <td>customer 3</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 4</td>
-        <td>strategy 4</td>
-        <td>customer 4</td>
-        <td>true</td>
-    </tr>
-                <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 1</td>
-        <td>strategy 1</td>
-        <td>customer 1</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 2</td>
-        <td>strategy 2</td>
-        <td>customer 2</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 3</td>
-        <td>strategy 3</td>
-        <td>customer 3</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 4</td>
-        <td>strategy 4</td>
-        <td>customer 4</td>
-        <td>true</td>
-    </tr>
-                <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 4</td>
-        <td>strategy 4</td>
-        <td>customer 4</td>
-        <td>true</td>
-    </tr>
-                <tr>
-        <td>
-            <input type="checkbox" class="select-item checkbox" name="select-item" value="1000" />
-        </td>
-        <td>portfolio 4</td>
-        <td>strategy 4</td>
-        <td>customer 4</td>
-        <td>true</td>
-    </tr>
+                {% endfor %}
                 </tbody>
 </table>
-<!--<button id="select-all" class="btn button-default">SelectAll/Cancel</button>-->
                   </div>
               </div>
+          <form name="formOperations" id="formOperations" action="{{ url_for('operations.form_operations') }}" method="post">
+              <input type='hidden' id="portfolios" name='portfolios'/>
+              </form>
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script>
