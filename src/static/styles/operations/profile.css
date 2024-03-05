@@ -665,3 +665,43 @@ input[type=checkbox]{
 .operations-button:active {
   background-color: #999999;
 }
+
+.alertttt {
+  position: absolute;
+  right: 5vw;
+  bottom: 30px;
+  width: 40vw;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+.alert {
+  position: absolute;
+  right: 5vw;
+  bottom: 30px;
+  width: 40vw;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+.alert .close {
+  position: absolute;
+  right: 20px;
+  bottom: 30%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  color: #F70000;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.alert.primary {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}

@@ -122,6 +122,12 @@
       <script type="text/javascript" src="{{ url_for('static',filename='styles/operations/table-sort.js') }}"></script>
   </head>
   <body>
+<!--  {% if message != '' %}-->
+<!--      <div class="alert primary">-->
+<!--  {{message}}-->
+<!--  <span class="close" onclick="this.parentElement.style.display='none'">×</span>-->
+<!--</div>-->
+<!--  {% endif %}-->
 <!--    <link rel="stylesheet" href="style.css" />-->
      <link rel="stylesheet" href="{{ url_for('static',filename='styles/operations/style.css') }}" />
     <div>
@@ -274,6 +280,12 @@
 
 
 </script>
+          {% if message != '' %}
+      <div class="alert primary">
+  {{message}}
+  <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+</div>
+  {% endif %}
       </div>
     </div>
     <script

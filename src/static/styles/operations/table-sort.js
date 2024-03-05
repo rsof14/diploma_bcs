@@ -17,9 +17,12 @@ $(document).ready(function() {
         checked.each(function() {
             checked_rows.push(this.textContent);
         });
-        $('#portfolios').val(checked_rows);
-        console.log($('#portfolios').val);
-        $('#formOperations').submit();
+        const result = confirm(`Сформировать операции и загрузить заявку в терминал  по следующим портфелям: ${checked_rows}?`);
+        if (result == true) {
+            $('#portfolios').val(checked_rows);
+            console.log($('#portfolios').val);
+            $('#formOperations').submit();
+        }
     });
     });
 

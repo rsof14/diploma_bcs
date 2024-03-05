@@ -5,6 +5,21 @@ from db.pg_db import db
 
 
 def get_portfolios_by_user(user_id: UUID):
-    return Portfolio.query.outerjoin(Strategy, Strategy.id == Portfolio.strategy_id).join(Customer, Customer.id == Portfolio.customer_id).add_columns(
-        Portfolio.account, Strategy.name, Customer.name, Portfolio.updated).filter(Portfolio.asset_manager == user_id).all()
+    return Portfolio.query.outerjoin(Strategy, Strategy.id == Portfolio.strategy_id).join(Customer,
+                                                                                          Customer.id == Portfolio.customer_id).add_columns(
+        Portfolio.account, Strategy.name, Customer.name, Portfolio.updated).filter(
+        Portfolio.asset_manager == user_id).all()
 
+
+def get_portfolio_by_id(portfolio_id: str):
+    return Portfolio.query.filter_by(account=portfolio_id).first()
+
+
+def update_portfolio_status(portfolio_id: str):
+    portfolio_obj = Portfolio.query.filter_by(account=portfolio_id).first()
+    portfolio_obj.updated = True
+    db.session.commit()
+
+
+def get_strategy_info(strategy_id: UUID):
+    return Strategy.query.filter_by(id=strategy_id).first()

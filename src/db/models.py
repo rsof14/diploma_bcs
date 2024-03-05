@@ -122,6 +122,11 @@ class Strategy(db.Model):
 
     id = Column(UUID(as_uuid=True), primary_key=True, unique=True, nullable=False)
     name = Column(Text, nullable=False)
+    currency = Column(String(3), nullable=False)
+    type = Column(Text, nullable=False)
+    risk_profile = Column(Text)
+    structure = Column(JSON)
+    valid = Column(Boolean)
 
     def __init__(self, name):
         self.name = name
