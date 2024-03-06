@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, DateTime, Date, ForeignKey, String, Text, ForeignKeyConstraint, JSON
+from sqlalchemy import Boolean, Column, DateTime, Date, ForeignKey, String, Text, ForeignKeyConstraint, JSON, REAL
 from sqlalchemy.dialects.postgresql import UUID
 
 from db.pg_db import db
@@ -147,3 +147,17 @@ class Customer(db.Model):
 
     def __repr__(self):
         return f'<Customer {self.name}>'
+
+
+class PortfolioValue(db.Model):
+    __tablename__ = 'portfolio_values'
+
+    account = Column(String(8), primary_key=True, unique=True, nullable=False)
+    date = Column(Date, primary_key=True, unique=True, nullable=False)
+    value = Column(REAL, nullable=False)
+
+    def __init__(self, account):
+        self.account = account
+
+    def __repr__(self):
+        return f'<Portfolio {self.account} value {self.value} on the {self.date}>'

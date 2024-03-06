@@ -1,7 +1,8 @@
 from uuid import UUID
 
-from db.models import User, Portfolio, Strategy, Customer
+from db.models import User, Portfolio, Strategy, Customer, PortfolioValue
 from db.pg_db import db
+from sqlalchemy import desc
 
 
 def get_portfolios_by_user(user_id: UUID):
@@ -23,3 +24,7 @@ def update_portfolio_status(portfolio_id: str):
 
 def get_strategy_info(strategy_id: UUID):
     return Strategy.query.filter_by(id=strategy_id).first()
+
+
+def get_latest_portfolio_value(account: str):
+    return PortfolioValue.query.filter_by(account=account).order_by(desc(PortfolioValue.date)).first()

@@ -1,4 +1,4 @@
-from db.queries.portfolio import get_portfolios_by_user, update_portfolio_status, get_portfolio_by_id, get_strategy_info
+from db.queries.portfolio import get_portfolios_by_user, update_portfolio_status, get_portfolio_by_id, get_strategy_info, get_latest_portfolio_value
 from services.user.user_service import user_get_data
 import logging
 from sqlalchemy.exc import IntegrityError
@@ -38,38 +38,30 @@ def form_quote(document, portfolio_id):
     total_cost = 0
     operations = ''
     for ticker in tickers:
-        print(list(structure.keys()))
         if ticker in list(structure.keys()):
             amount = structure[ticker]
         else:
             amount = 0
-        # price = float(yf.download(ticker, start=start_date)['Close'].iloc[0])
-        # prices[ticker] = price
-        # costs[ticker] = amount * price
         costs[ticker] = amount * prices[ticker]
-        total_cost += costs[ticker]
-        if total_cost == 0:
-            total_cost = 1000
+    portfolio_value = get_latest_portfolio_value(portfolio_id)
+    if portfolio_value:
+        total_cost = portfolio_value.value
+    print(total_cost)
 
-    for ticker in tickers:
-        current_weight = costs[ticker] / total_cost
-        # if total_cost != 0:
-        #     current_weight = costs[ticker] / total_cost
-        # else:
-        #     current_weight = 0
-        if ticker in list(strategy_structure.keys()):
-            delta_weight = (strategy_structure[ticker] / 100) - current_weight
-        else:
-            delta_weight = -current_weight
-        print(f'delta weight {delta_weight}')
-        if delta_weight >= 0.01:
-            price = prices[ticker]
-            operation_amount = delta_weight * total_cost / price
-            print(f'operation amount {operation_amount}')
-            if operation_amount > 0:
-                operations += f'{portfolio_id} {ticker} {math.ceil(operation_amount)} {price} buy\n'
-            elif operation_amount < 0:
-                operations += f'{portfolio_id} {ticker} {math.ceil(-operation_amount)} {price} sell\n'
+    if total_cost > 0:
+        for ticker in tickers:
+            current_weight = costs[ticker] / total_cost
+            if ticker in list(strategy_structure.keys()):
+                delta_weight = (strategy_structure[ticker] / 100) - current_weight
+            else:
+                delta_weight = -current_weight
+            if delta_weight >= 0.01:
+                price = prices[ticker]
+                operation_amount = delta_weight * total_cost / price
+                if operation_amount > 0:
+                    operations += f'ACCOUNT={portfolio_id}; TICKER={ticker}; QUANTITY={math.floor(operation_amount)}; PRICE={round(price, 2)}; OPERATION=BUY;\n'
+                elif operation_amount < 0:
+                    operations += f'ACCOUNT={portfolio_id}; TICKER={ticker}; QUANTITY={math.ceil(operation_amount)}; PRICE={round(price, 2)}; OPERATION=SELL;\n'
 
     return operations
 
