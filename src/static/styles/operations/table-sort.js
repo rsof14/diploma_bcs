@@ -1,3 +1,8 @@
+class ItcModal {
+  #template = '<div class="itc-modal-backdrop"><div class="itc-modal-content"><div class="itc-modal-header"><div class="itc-modal-title">{{title}}</div><span class="itc-modal-btn-close" title="Закрыть">×</span></div><div class="itc-modal-body">{{content}}</div>{{footer}}</div></div>';
+  // ...
+}
+
 $(document).ready(function() {
       console.log('start');
       $('.sortable').click(function() {
@@ -12,7 +17,6 @@ $(document).ready(function() {
 
        $("#form_operations").click(function(){
        var checked_rows = [];
-        console.log("button");
         var checked = $("#OperationTable tr").filter(':has(:checkbox:checked)').find('td:eq(1)');
         checked.each(function() {
             checked_rows.push(this.textContent);
@@ -24,6 +28,31 @@ $(document).ready(function() {
             $('#formOperations').submit();
         }
     });
+
+    var operations = $("#OperationsString").text().trimStart();
+    console.log(operations)
+    if (operations.includes('ACCOUNT')) {
+//        $('#portfolios_').val(getCheckedRows());
+        $('#total_operations').val(operations);
+        $("#staticBackdrop").modal('show');
+
+//        const preview = prompt("Предварительный просмотр сформированного документа", operations);
+//        if (preview != null) {
+//            $('#portfolios_').val(getCheckedRows());
+//            $('#total_operations').val(preview);
+//            console.log($('#total_operations').val);
+//            console.log($('#portfolios').val);
+//            $('#sendOperations').submit();
+//        }
+//        else {
+//        $("#OperationsString").text('');
+//        }
+    }
+
+    $("#OperationSubmit").click(function(){
+        $('#sendOperations').submit();
+    });
+
     });
 
 function comparer(index) {
@@ -37,3 +66,12 @@ function getCellValue(row, index) {
   return $(row).children('td').eq(index).text();
 }
 
+
+function getCheckedRows() {
+    var checked_rows = [];
+        var checked = $("#OperationTable tr").filter(':has(:checkbox:checked)').find('td:eq(1)');
+        checked.each(function() {
+            checked_rows.push(this.textContent);
+        });
+       return checked_rows
+}
