@@ -1,5 +1,6 @@
 FROM python:3.10
 ENV PYTHONUNBUFFERED=1
+ENV TZ="Europe/Moscow"
 WORKDIR /app
 
 COPY requirements.txt requirements.txt

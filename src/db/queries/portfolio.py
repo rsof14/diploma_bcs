@@ -28,3 +28,15 @@ def get_strategy_info(strategy_id: UUID):
 
 def get_latest_portfolio_value(account: str):
     return PortfolioValue.query.filter_by(account=account).order_by(desc(PortfolioValue.date)).first()
+
+
+def update_portfolio_value(portfolio_values: dict):
+    value_objects = PortfolioValue.query.all()
+    for obj in value_objects:
+        if obj.account in list(portfolio_values.keys()):
+            obj.value = portfolio_values[obj.account]
+    db.session.commit()
+
+
+def get_portfolios_values():
+    return PortfolioValue.query.all()

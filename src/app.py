@@ -16,6 +16,9 @@ from api.v1.operations import operations_bp
 from db.alembic_migrate_init import init_migration_tool
 from db.pg_db import db, init_db
 from services.auth.jwt_init import init_jwt
+from services.operation.operation_service import update_portfolios
+from datetime import datetime
+from flask_apscheduler import APScheduler
 
 
 def register_blueprints(app):
@@ -40,6 +43,8 @@ def init_extensions(app):
 # if app_config.enable_tracer:
 #     configure_tracer()
 
+scheduler = APScheduler()
+
 
 def create_app():
     app = Flask(__name__)
@@ -50,10 +55,15 @@ def create_app():
     #     upgrade()
     return app
 
+
 print('started')
 app = create_app()
 CORS(app)
 
+scheduler.api_enabled = True
+scheduler.init_app(app)
+scheduler.start()
+scheduler.add_job(id='func_id', func=update_portfolios, trigger='cron', hour=23, minute=27)
 
 # @app.before_request
 # def before_request():

@@ -233,6 +233,7 @@
   margin-bottom: var(--dl-space-space-unit);
   padding-right: var(--dl-space-space-oneandhalfunits);
   padding-bottom: 7px;
+  color: var(--dl-color-gray-black);
 }
 .profile-link06:hover {
   background-color: #D9D9D9;
@@ -248,6 +249,7 @@
   padding-left: var(--dl-space-space-oneandhalfunits);
   padding-right: var(--dl-space-space-oneandhalfunits);
   padding-bottom: 7px;
+  color: var(--dl-color-gray-black);
 }
 .profile-link07:hover {
   background-color: #D9D9D9;
@@ -408,7 +410,7 @@
   font-family: "Montserrat";
   font-weight: 500;
   padding-top: var(--dl-space-space-unit);
-  padding-bottom: var(--dl-space-space-unit);
+  padding-bottom: var(--dl-space-space-halfunit);
 }
 .profile-textinput {
   width: 100%;
@@ -417,7 +419,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
-  padding-top: var(--dl-space-space-unit);
+  padding-top: var(--dl-space-space-halfunit);
 }
 .profile-text14 {
   font-size: 24px;
@@ -425,7 +427,7 @@
   font-family: "Montserrat";
   font-weight: 500;
   padding-top: var(--dl-space-space-oneandhalfunits);
-  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-halfunit);
 }
 .profile-textinput1 {
   width: 100%;
@@ -434,7 +436,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
-  padding-top: var(--dl-space-space-unit);
+  padding-top: var(--dl-space-space-halfunit);
 }
 .profile-text15 {
   font-size: 24px;
@@ -442,7 +444,7 @@
   font-family: "Montserrat";
   font-weight: 500;
   padding-top: var(--dl-space-space-oneandhalfunits);
-  padding-bottom: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-halfunit);
 }
 .profile-textinput2 {
   width: 100%;
@@ -451,7 +453,7 @@
   font-size: 18px;
   font-family: "Montserrat";
   font-weight: 400;
-  padding-top: var(--dl-space-space-unit);
+  padding-top: var(--dl-space-space-halfunit);
 }
 .profile-link09 {
   width: auto;
@@ -465,6 +467,7 @@
   padding-right: 0px;
   padding-bottom: var(--dl-space-space-oneandhalfunits);
   text-decoration: underline;
+  color: var(--dl-color-gray-black);
 }
 .profile-link09:hover {
   color: #538bec;
@@ -516,8 +519,8 @@
 }
 
 .auth-button {
-  top: 273px;
-  left: 49px;
+  top: 54vh;
+  left: 17vw;
   color: #ffffff;
   width: 149px;
   height: 39px;
@@ -535,8 +538,8 @@
 }
 
 .auth-button02 {
-  top: 337px;
-  left: 49px;
+  top: 54vh;
+  left: 3.6vw;
   color: #ffffff;
   width: 149px;
   height: 39px;

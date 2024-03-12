@@ -30,3 +30,4 @@ Authlib==1.2.0
 python-logstash==0.4.8
 flask_cors==4.0.0
 yfinance==0.2.37
+Flask-APScheduler==1.13.1

@@ -37,7 +37,6 @@ def form_operations():
         portfolios_ids = request.form.to_dict()
         portfolios_ids['portfolios'] = portfolios_ids['portfolios'].split(',')
         operations = form_portfolio_operations(portfolios_ids)
-        # message = f'Успешно сформированы операции и загружена заявка по портфелям: {" ".join(str(x) for x in portfolios_ids["portfolios"])}'
     portfolios = ''
     for p_id in portfolios_ids['portfolios']:
         portfolios += f"{p_id} "

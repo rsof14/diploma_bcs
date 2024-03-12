@@ -9,7 +9,6 @@ services:
       - "5432:5432"
     volumes:
       - $HOME/postgresql/bcs_data:/var/lib/postgresql/bcs_db_data
-#      - $HOME/postgresql/data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U app -d bcs_db" ]
       interval: 5s
@@ -32,6 +31,8 @@ services:
       - ./.env
     ports:
       - "8000:8000"
+    volumes:
+      - $HOME/Desktop/git/git2/diploma/files/:/var/lib/auth/data
     depends_on:
       - redis
       - postgres
