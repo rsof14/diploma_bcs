@@ -88,7 +88,6 @@ def update_portfolios():
     values = {}
     for portfolio in get_portfolios_values():
         values[portfolio.account] = get_value(portfolio.account, portfolio.value)
-    print(f'values {values}')
     update_portfolio_value(values)
 
     print('updated')

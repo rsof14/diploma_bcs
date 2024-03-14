@@ -32,9 +32,17 @@ def get_latest_portfolio_value(account: str):
 
 def update_portfolio_value(portfolio_values: dict):
     value_objects = PortfolioValue.query.all()
-    for obj in value_objects:
+    portfolio_objects = Portfolio.query.all()
+    num = Portfolio.query.count()
+    for i in range(num):
+        obj = value_objects[i]
+    # for obj in value_objects:
         if obj.account in list(portfolio_values.keys()):
             obj.value = portfolio_values[obj.account]
+        portfolio_objects[i].updated = False
+
+    # for portfolio in portfolio_objects:
+    #     portfolio.updated = False
     db.session.commit()
 
 

@@ -17,7 +17,6 @@ from db.alembic_migrate_init import init_migration_tool
 from db.pg_db import db, init_db
 from services.auth.jwt_init import init_jwt
 from services.operation.operation_service import update_portfolios
-from datetime import datetime
 from flask_apscheduler import APScheduler
 
 
@@ -56,18 +55,14 @@ def create_app():
     return app
 
 
-print('started')
+def schedule_portfolios_update():
+    with app.app_context():
+        update_portfolios()
+
+
 app = create_app()
 CORS(app)
-
 scheduler.api_enabled = True
 scheduler.init_app(app)
 scheduler.start()
-scheduler.add_job(id='func_id', func=update_portfolios, trigger='cron', hour=23, minute=27)
-
-# @app.before_request
-# def before_request():
-#     app.jinja_env.cache = {}
-#     request_id = request.headers.get('X-Request-Id')
-#     if not request_id:
-#         raise RuntimeError('request id is required')
+scheduler.add_job(id='func_id', func=schedule_portfolios_update, trigger='cron', hour=21, minute=10)
