@@ -156,8 +156,10 @@ class PortfolioValue(db.Model):
     date = Column(Date, primary_key=True, unique=True, nullable=False)
     value = Column(REAL, nullable=False)
 
-    def __init__(self, account):
+    def __init__(self, account, date, value):
         self.account = account
+        self.date = date
+        self.value = value
 
     def __repr__(self):
         return f'<Portfolio {self.account} value {self.value} on the {self.date}>'

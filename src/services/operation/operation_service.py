@@ -81,7 +81,7 @@ def form_quote(portfolio_id):
 
 
 def get_value(portfolio_id: str, cur_value: float):
-    return cur_value * random.randint(1, 20) / 100
+    return cur_value * random.choice([random.uniform(0.7, 1), random.uniform(1.1, 1.4)])
 
 
 def update_portfolios():

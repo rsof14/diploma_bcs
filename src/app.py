@@ -65,4 +65,4 @@ CORS(app)
 scheduler.api_enabled = True
 scheduler.init_app(app)
 scheduler.start()
-scheduler.add_job(id='func_id', func=schedule_portfolios_update, trigger='cron', hour=21, minute=10)
+scheduler.add_job(id='update_portfolios', func=schedule_portfolios_update, trigger='cron', hour=23, minute=00)

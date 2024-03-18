@@ -3,6 +3,7 @@ from uuid import UUID
 from db.models import User, Portfolio, Strategy, Customer, PortfolioValue
 from db.pg_db import db
 from sqlalchemy import desc
+import datetime
 
 
 def get_portfolios_by_user(user_id: UUID):
@@ -31,18 +32,13 @@ def get_latest_portfolio_value(account: str):
 
 
 def update_portfolio_value(portfolio_values: dict):
-    value_objects = PortfolioValue.query.all()
-    portfolio_objects = Portfolio.query.all()
-    num = Portfolio.query.count()
-    for i in range(num):
-        obj = value_objects[i]
-    # for obj in value_objects:
-        if obj.account in list(portfolio_values.keys()):
-            obj.value = portfolio_values[obj.account]
-        portfolio_objects[i].updated = False
+    portfolios = Portfolio.query.all()
+    date = datetime.datetime.now().date().strftime('%Y-%m-%d')
+    for portfolio in portfolios:
+        item = PortfolioValue(account=portfolio.account, date=date, value=portfolio_values[portfolio.account])
+        portfolio.updated = False
+        db.session.add(item)
 
-    # for portfolio in portfolio_objects:
-    #     portfolio.updated = False
     db.session.commit()
 
 
