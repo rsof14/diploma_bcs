@@ -12,6 +12,7 @@ from api.v1.models.marshmallow_init import init_marshmallow
 from api.v1.users import users_bp
 from core.config import app_config
 from api.v1.operations import operations_bp
+from api.v1.dashboard import dashboard_bp
 # from core.tracing import configure_tracer
 from db.alembic_migrate_init import init_migration_tool
 from db.pg_db import db, init_db
@@ -26,6 +27,7 @@ def register_blueprints(app):
     # app.register_blueprint(admin_roles_bp, url_prefix=API_V1_PATH + '/admin/roles')
     app.register_blueprint(users_bp, url_prefix=API_V1_PATH + '/user')
     app.register_blueprint(operations_bp, url_prefix=API_V1_PATH + '/operations')
+    app.register_blueprint(dashboard_bp, url_prefix=API_V1_PATH + '/dashboard')
     # app.register_blueprint(admin_users_bp, url_prefix=API_V1_PATH + '/admin/users')
 
 
