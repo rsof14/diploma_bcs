@@ -247,14 +247,11 @@ $(document).ready(function() {
           <div class="dashboard">
               <div id="dashboard1" class="dashboard1">
                   </div>
-              <div class="dashboard2">
-                Strategy sectors
+              <div id="dashboard2" class="dashboard2">
                   </div>
-            <div class="dashboard3">
-                Dynamic with benchmark
+            <div id="dashboard3" class="dashboard3">
                   </div>
-            <div class="dashboard4">
-                Dynamic price
+            <div id="dashboard4" class="dashboard4">
                   </div>
               </div>
 
@@ -263,8 +260,14 @@ $(document).ready(function() {
  <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
  {% if diagram != '' %}
                 <script type='text/javascript'>
-                  var graphs = {{diagram | safe}};
+                  var graphs = {{diagrams[0] | safe}};
                   Plotly.plot('dashboard1',graphs,{});
+                  var graphs2 = {{diagrams[1] | safe}};
+                  Plotly.plot('dashboard2',graphs2,{});
+                  var graphs3 = {{diagrams[2] | safe}};
+                  Plotly.plot('dashboard3',graphs3,{});
+                  var graphs4 = {{diagrams[3] | safe}};
+                  Plotly.plot('dashboard4',graphs4,{});
                 </script>
                 {% endif %}
  <form name="formDashboard" id="formDashboard" action="{{ url_for('dashboard.form_dashboard') }}" method="post">
