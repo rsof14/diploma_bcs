@@ -163,3 +163,35 @@ class PortfolioValue(db.Model):
 
     def __repr__(self):
         return f'<Portfolio {self.account} value {self.value} on the {self.date}>'
+
+
+class RiskProfile(db.Model):
+    __tablename__ = 'risk_profile'
+
+    name = Column(Text, primary_key=True, unique=True, nullable=False)
+    max_var = Column(REAL, nullable=False)
+
+    def __init__(self, name, max_var):
+        self.name = name
+        self.max_var = max_var
+
+    def __repr__(self):
+        return f'<Risk profile {self.name} max VaR {self.max_var}>'
+
+
+class PortfolioRisks(db.Model):
+    __tablename__ = 'portfolio_risks'
+
+    risk_metric = Column(Text, primary_key=True, unique=True, nullable=False)
+    account = Column(String(8), primary_key=True, unique=True, nullable=False)
+    value = Column(REAL, nullable=False)
+    updated = Column(Boolean)
+    violation = Column(Boolean)
+
+    def __init__(self, risk_metric, account, value):
+        self.risk_metric = risk_metric
+        self.account = account
+        self.value = value
+
+    def __repr__(self):
+        return f'<Portfolio risks {self.account} metric {self.risk_metric} value {self.value}>'
