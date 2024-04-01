@@ -1,5 +1,4 @@
 $(document).ready(function() {
-      console.log('start');
       $('.sortable').click(function() {
         var table = $(this).parents('table').eq(0);
         var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));

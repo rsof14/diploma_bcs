@@ -1,4 +1,4 @@
-from db.queries.portfolio import get_portfolios_by_user, update_portfolio_status, get_portfolio_by_id, \
+from db.queries.portfolio import get_portfolios_by_user, update_portfolio_status_structure, get_portfolio_by_id, \
     get_strategy_info, get_latest_portfolio_value, update_portfolio_value, get_portfolios_values
 from services.user.user_service import user_get_data
 import logging
@@ -14,13 +14,52 @@ def get_portfolio_list(login: str):
     return get_portfolios_by_user(user_id)
 
 
+def parse_operations(operations: str):
+    final = {}
+    for operation in operations.split('\n'):
+        operation_ = operation.replace(" ", "").split(';')
+        account, ticker, quantity, op = '', '', 0, ''
+        for atr in operation_:
+            atr_ = atr.split('=')
+            if atr_[0] == 'ACCOUNT':
+                account = atr_[1]
+            elif atr_[0] == 'TICKER':
+                ticker = atr_[1]
+            elif atr_[0] == 'QUANTITY':
+                quantity = atr_[1]
+            elif atr_[0] == 'OPERATION':
+                op = atr_[1]
+        if account != '':
+            quantity = int(quantity)
+            if op == 'SELL':
+                quantity *= -1
+            if account not in final:
+                final[account] = {}
+            final[account][ticker] = quantity
+    return final
+
+
+def update_portfolio_structure(portfolio_id: str, operations: dict):
+    portfolio = get_portfolio_by_id(portfolio_id)
+    structure = portfolio.structure
+    for ticker, value in operations.items():
+        if ticker in structure:
+            structure[ticker] += value
+        else:
+            structure[ticker] = value
+
+    return structure
+
+
 def send_portfolio_operations(portfolios_ids: str, operations: str):
     portfolios = portfolios_ids[:-1].split(' ')
     with open("/var/lib/auth/data/operations.txt", "w") as file:
         file.write(operations)
+    parsed_operations = parse_operations(operations)
     try:
         for portfolio in portfolios:
-            update_portfolio_status(portfolio)
+            structure = update_portfolio_structure(portfolio, parsed_operations[portfolio])
+            update_portfolio_status_structure(portfolio, structure)
         logging.info('Portfolios %s successfully updated', portfolios_ids)
     except IntegrityError:
         logging.warning('Wrong')
@@ -32,7 +71,6 @@ def form_portfolio_operations(portfolios_ids: dict):
         for portfolio in portfolios_ids['portfolios']:
             quote_file += form_quote(portfolio)
         logging.info('Portfolios %s successfully updated', portfolios_ids)
-        print(quote_file)
     except IntegrityError:
         logging.warning('Wrong')
 
@@ -47,8 +85,16 @@ def form_quote(portfolio_id):
     tickers = list(strategy_structure.keys())
     start_date = datetime.datetime.now().date().strftime('%Y-%m-%d')
     costs = {}
-    prices = dict(zip(tuple(tickers), yf.download(tuple(tickers), start=start_date)['Close'].values[0]))
-    print(prices)
+    try:
+        prices = dict(zip(tuple(tickers), yf.download(tuple(tickers), start=start_date)['Close'].values[0]))
+    except IndexError:
+        days = 0
+        df = yf.download(tuple(tickers), start=start_date)['Close']
+        while df.shape[0] == 0:
+            days += 1
+            start_date = (datetime.datetime.now().date() - datetime.timedelta(days=days)).strftime('%Y-%m-%d')
+            df = yf.download(tuple(tickers), start=start_date)['Close']
+        prices = dict(zip(tuple(tickers), df.values[0]))
     total_cost = 0
     operations = ''
     for ticker in tickers:
@@ -60,7 +106,6 @@ def form_quote(portfolio_id):
     portfolio_value = get_latest_portfolio_value(portfolio_id)
     if portfolio_value:
         total_cost = portfolio_value.value
-    print(total_cost)
 
     if total_cost > 0:
         for ticker in tickers:

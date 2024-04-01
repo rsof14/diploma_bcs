@@ -21,7 +21,9 @@ def get_params(current_user, portfolios=''):
 @jwt_required()
 def update_value():
     current_user = get_jwt_identity()
-    print('update')
+    portfolios = ''
+    if request.method == 'POST' and request.form.get('strategy'):
+        pass
 
 
 @portfolio_bp.route('/', methods=['GET'])

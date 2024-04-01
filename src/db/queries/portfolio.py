@@ -17,9 +17,10 @@ def get_portfolio_by_id(portfolio_id: str):
     return Portfolio.query.filter_by(account=portfolio_id).first()
 
 
-def update_portfolio_status(portfolio_id: str):
+def update_portfolio_status_structure(portfolio_id: str, structure: dict):
     portfolio_obj = Portfolio.query.filter_by(account=portfolio_id).first()
     portfolio_obj.updated = True
+    portfolio_obj.structure = structure
     db.session.commit()
 
 
@@ -54,6 +55,8 @@ def get_all_portfolios_info():
         Strategy.risk_profile == RiskProfile.name).outerjoin(PortfolioRisks, Portfolio.account == PortfolioRisks.account).add_columns(
         Portfolio.account.label('account'), Customer.name.label('customer_name'), Strategy.name.label('strategy_name'), subq.c.value.label('value'), RiskProfile.max_var.label('max_var'), PortfolioRisks.risk_metric.label('risk_metric'), PortfolioRisks.value.label('metric_value'), PortfolioRisks.violation.label('violation'), PortfolioRisks.updated.label('updated'))
     return pcs.all()
+
+
 
 
 

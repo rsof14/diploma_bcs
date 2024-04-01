@@ -27,32 +27,6 @@ def form_diagrams(strategy_name: str):
     return [form_strategy_structure_diagram(assets, values), form_strategy_sectors_diagram(assets, values),
             form_strategy_profit_dynamic(strategy_name, assets, start_date, end_date),
             form_strategy_prices_dynamic(assets, start_date, end_date)]
-    # df = pd.DataFrame({'ticker': assets, 'proportion': values})
-    # fig = px.pie(df,
-    #              values='proportion',
-    #              names='ticker',
-    #              color_discrete_sequence=px.colors.sequential.Plasma,
-    #              )
-    # fig.update_traces(
-    #     textposition='inside',
-    #     textinfo='percent+label',
-    #
-    # )
-    # fig.update_layout(uniformtext_minsize=10,
-    #                   title_text='Состав стратегии',
-    #                   title_x=0.5,
-    #                   font=dict(
-    #                       family='Montserrat, monospace',
-    #                       size=18,
-    #                       color="black"
-    #                   ),
-    #                   plot_bgcolor="rgba(0,0,0,0)",
-    #                   paper_bgcolor="rgba(0,0,0,0)",
-    #                   width=400,
-    #                   height=320,
-    #                   )
-    # graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    # return graphJSON
 
 
 def form_strategy_structure_diagram(assets: list, values: list):
