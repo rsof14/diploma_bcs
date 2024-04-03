@@ -33,6 +33,19 @@ services:
       - "8000:8000"
     volumes:
       - $HOME/Desktop/git/git2/diploma/files/:/var/lib/auth/data
+#    deploy:
+#      resources:
+##        requests:
+##          cpu: 250m
+##          memory: 256Mi
+#        limits:
+#          cpus: '3'
+#          memory: 1G
+#        reservations:
+#          memory: 256M
+#    memswap_limit: 6G
+#    mem_swappiness: 1
+
     depends_on:
       - redis
       - postgres

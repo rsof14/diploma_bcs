@@ -5,8 +5,6 @@ from flask_limiter.util import get_remote_address
 from flask_migrate import upgrade
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
-# from api.v1.admin_roles import admin_roles_bp
-# from api.v1.admin_users import admin_users_bp
 from api.v1.auth import auth_bp
 from api.v1.models.marshmallow_init import init_marshmallow
 from api.v1.users import users_bp

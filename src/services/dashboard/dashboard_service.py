@@ -1,11 +1,6 @@
 from db.queries.dashboard import get_strategies_for_dashboard, get_strategy_by_name
-from matplotlib import pyplot as plt
-import numpy as np
-import plotly.graph_objs as go
 import plotly
 import plotly.express as px
-# import dash_core_components as dcc
-# import dash_html_components as html
 import pandas as pd
 import json
 import yfinance as yf

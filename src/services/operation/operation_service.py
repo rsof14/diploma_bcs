@@ -83,7 +83,8 @@ def form_quote(portfolio_id):
     strategy = get_strategy_info(portfolio.strategy_id)
     strategy_structure = strategy.structure
     tickers = list(strategy_structure.keys())
-    start_date = datetime.datetime.now().date().strftime('%Y-%m-%d')
+    # start_date = datetime.datetime.now().date().strftime('%Y-%m-%d')
+    start_date = (datetime.datetime.now().date() - datetime.timedelta(days=3)).strftime('%Y-%m-%d')
     costs = {}
     try:
         prices = dict(zip(tuple(tickers), yf.download(tuple(tickers), start=start_date)['Close'].values[0]))
