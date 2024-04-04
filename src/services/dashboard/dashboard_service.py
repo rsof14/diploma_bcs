@@ -113,7 +113,7 @@ def form_strategy_prices_dynamic(assets: list, start_date: str, end_date: str):
 
 
 def form_strategy_profit_dynamic(strategy_name: str, assets: list, start_date: str, end_date: str):
-    assets_benchmark = assets
+    assets_benchmark = assets.copy()
     assets_benchmark.append('^GSPC')
     df = pd.DataFrame(columns=assets_benchmark)
     for ticker in assets_benchmark:

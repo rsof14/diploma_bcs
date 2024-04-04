@@ -57,6 +57,18 @@ def get_all_portfolios_info():
     return pcs.all()
 
 
+def update_risks(metric: str, account: str, value: float):
+    portfolio_risks = PortfolioRisks.query.filter_by(account=account, risk_metric=metric).first()
+    max_var = Portfolio.query.filter_by(account=account).join(Strategy, Strategy.id == Portfolio.strategy_id).outerjoin(RiskProfile, Strategy.risk_profile == RiskProfile.name).add_columns(RiskProfile.max_var.label('max_var')).first().max_var
+    if portfolio_risks:
+        portfolio_risks.value = value
+        portfolio_risks.updated = True
+        portfolio_risks.violation = True if value > max_var else False
+    else:
+        item = PortfolioRisks(risk_metric=metric, account=account, value=value, updated=True, violation=True if value > max_var else False)
+        db.session.add(item)
+
+    db.session.commit()
 
 
 

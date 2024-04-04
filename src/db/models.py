@@ -188,10 +188,12 @@ class PortfolioRisks(db.Model):
     updated = Column(Boolean)
     violation = Column(Boolean)
 
-    def __init__(self, risk_metric, account, value):
+    def __init__(self, risk_metric, account, value, updated, violation):
         self.risk_metric = risk_metric
         self.account = account
         self.value = value
+        self.updated = updated
+        self.violation = violation
 
     def __repr__(self):
         return f'<Portfolio risks {self.account} metric {self.risk_metric} value {self.value}>'

@@ -4,7 +4,7 @@ from http import HTTPStatus
 from flask import Blueprint, jsonify, request, render_template
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
-from services.portfolio.portfolio_service import get_info
+from services.portfolio.portfolio_service import get_info, update_portfolios_risks
 
 from api.v1.users import get_users_params
 
@@ -21,9 +21,12 @@ def get_params(current_user, portfolios=''):
 @jwt_required()
 def update_value():
     current_user = get_jwt_identity()
-    portfolios = ''
-    if request.method == 'POST' and request.form.get('strategy'):
-        pass
+    if request.method == 'POST' and request.form.get('portfolios'):
+        portfolios_ids = request.form.to_dict()
+        portfolios_ids['portfolios'] = portfolios_ids['portfolios'].split(',')
+        update_portfolios_risks(portfolios_ids)
+    portfolios = get_info()
+    return render_template('portfolio/portfolios_temp.html', **get_params(current_user, portfolios))
 
 
 @portfolio_bp.route('/', methods=['GET'])

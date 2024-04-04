@@ -40,7 +40,6 @@ def form_operations():
     portfolios = ''
     for p_id in portfolios_ids['portfolios']:
         portfolios += f"{p_id} "
-    print(portfolios)
     return render_template('operations/operations_temp.html', **get_params(current_user, message, operations, portfolios))
 
 

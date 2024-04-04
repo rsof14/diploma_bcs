@@ -1,10 +1,11 @@
 from dateutil.relativedelta import relativedelta
-from db.queries.portfolio import get_all_portfolios_info, get_portfolio_by_id
+from db.queries.portfolio import get_all_portfolios_info, get_portfolio_by_id, update_risks
 import datetime
 import yfinance as yf
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
+import math
 
 
 def get_info():
@@ -13,7 +14,8 @@ def get_info():
 
 def update_portfolios_risks(portfolios_ids: dict):
     for portfolio in portfolios_ids['portfolios']:
-        pass
+        var = calculate_var(portfolio)
+        update_risks('Value at Risk', portfolio, var)
 
 
 def calculate_var(portfolio_id: str):
@@ -42,4 +44,6 @@ def calculate_var(portfolio_id: str):
     tickers_weights['Weight'].values.transpose()
     stdev = np.sqrt(np.matmul(np.matmul(tickers_weights['Weight'].values, cov_matrix),
                               tickers_weights['Weight'].values.transpose()))
-    var = stdev * np.sqrt(10) * norm.ppf(0.95)
+    var = round(stdev * np.sqrt(10) * norm.ppf(0.95) * 100, 3)
+
+    return var

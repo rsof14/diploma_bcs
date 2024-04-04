@@ -219,8 +219,8 @@
         <th class="sortable">Клиент</th>
         <th class="sortable">Стратегия</th>
         <th class="sortable">Стоимость</th>
-        <th class="sortable">Макс. VaR</th>
-        <th class="sortable">Value at Risk</th>
+        <th class="sortable">Макс. VaR, %</th>
+        <th class="sortable">Value at Risk, %</th>
         <th class="sortable">Обновлено</th>
     </tr>
                 </thead>
@@ -235,7 +235,12 @@
         <td>{{item.strategy_name}}</td>
         <td>{{item.value}}</td>
         <td>{{item.max_var}}</td>
-        <td>{{item.metric_value}}</td>
+                     {% if item.metric_value > item.max_var %}
+
+        <td style="color: #9e2f19;">{{item.metric_value}}</td>
+                    {% else %}
+                    <td style="color: #488042;">{{item.metric_value}}</td>
+                    {% endif %}
         <td>{{item.updated}}</td>
     </tr>
                 {% endfor %}
