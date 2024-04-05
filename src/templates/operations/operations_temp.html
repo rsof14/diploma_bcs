@@ -128,16 +128,8 @@
   <body>
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-<!--  {% if message != '' %}-->
-<!--      <div class="alert primary">-->
-<!--  {{message}}-->
-<!--  <span class="close" onclick="this.parentElement.style.display='none'">×</span>-->
-<!--</div>-->
-<!--  {% endif %}-->
-<!--    <link rel="stylesheet" href="style.css" />-->
      <link rel="stylesheet" href="{{ url_for('static',filename='styles/operations/style.css') }}" />
     <div>
-<!--      <link href="profile.css" rel="stylesheet" />-->
 <link href="{{ url_for('static',filename='styles/operations/profile.css') }}" rel="stylesheet" />
       <div class="profile-container">
         <div class="profile-sidebar">
@@ -155,13 +147,6 @@
           </nav>
           <div class="profile-profile">
             <div class="profile-container1">
-              <a
-                href="https://example.com"
-                rel="noreferrer noopener"
-                class="profile-link06"
-              >
-                Тех. поддержка
-              </a>
               <a
                 href="javascript: signOut();"
                 class="profile-link07"
@@ -253,12 +238,6 @@
           <form name="formOperations" id="formOperations" action="{{ url_for('operations.form_operations') }}" method="post">
               <input type='hidden' id="portfolios" name='portfolios'/>
               </form>
-<!--          <form name="sendOperations" id="sendOperations" action="{{ url_for('operations.send_operations') }}" method="post">-->
-<!--             <input type='hidden' id="portfolios_" name='portfolios_'/>-->
-<!--              <input type='hidden' id="total_operations" name='total_operations'/>-->
-<!--              </form>-->
-<!--<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>-->
-<!--<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 <script>
     $(function(){
         //button select all or cancel
@@ -317,7 +296,6 @@
       </div>
       <div class="modal-body">
         <form name="sendOperations" id="sendOperations" action="{{ url_for('operations.send_operations') }}" method="post">
-<!--             <input type='hidden' id="portfolios_" name='portfolios_' value={{portfolios_ids}}/>-->
             <textarea id="portfolios_" name='portfolios_' style="display:none;">{{portfolios_ids}}</textarea>
             <textarea class="operations_input" id="total_operations" name="total_operations"></textarea>
               </form>

@@ -141,6 +141,8 @@ class Customer(db.Model):
     id = Column(UUID(as_uuid=True), primary_key=True, unique=True, nullable=False)
     name = Column(Text, nullable=False)
     branch = Column(Text)
+    phone = Column(Text)
+    email = Column(Text)
 
     def __init__(self, name):
         self.name = name

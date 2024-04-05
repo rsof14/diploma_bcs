@@ -248,6 +248,7 @@
   padding-left: var(--dl-space-space-oneandhalfunits);
   padding-right: var(--dl-space-space-oneandhalfunits);
   padding-bottom: 7px;
+  margin-top: var(--dl-space-space-unit);
 }
 .profile-link07:hover {
   background-color: #D9D9D9;

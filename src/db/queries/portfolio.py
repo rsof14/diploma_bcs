@@ -34,11 +34,15 @@ def get_latest_portfolio_value(account: str):
 
 def update_portfolio_value(portfolio_values: dict):
     portfolios = Portfolio.query.all()
+    portfolios_risks = PortfolioRisks.query.all()
     date = datetime.datetime.now().date().strftime('%Y-%m-%d')
     for portfolio in portfolios:
         item = PortfolioValue(account=portfolio.account, date=date, value=portfolio_values[portfolio.account])
         portfolio.updated = False
         db.session.add(item)
+
+    for pr in portfolios_risks:
+        pr.updated = False
 
     db.session.commit()
 

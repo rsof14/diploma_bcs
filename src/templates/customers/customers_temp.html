@@ -114,13 +114,16 @@
       rel="stylesheet"
       href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
     />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      <script type="text/javascript" src="{{ url_for('static',filename='styles/portfolio/table-sort.js') }}"></script>
   </head>
   <body>
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/profile/style.css') }}" />
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="{{ url_for('static',filename='styles/portfolio/style.css') }}" />
     <div>
-      <link href="{{ url_for('static',filename='styles/profile/profile.css') }}" rel="stylesheet" />
-
+<link href="{{ url_for('static',filename='styles/portfolio/profile.css') }}" rel="stylesheet" />
       <div class="profile-container">
         <div class="profile-sidebar">
           <nav id="navigation" class="profile-nav">
@@ -184,67 +187,39 @@
           </div>
         </header>
         <figure data-role="Accordion" class="profile-header1"></figure>
-        <figure data-role="Accordion" class="profile-header2">
-          <form action="{{ url_for('user.change_user_password') }}" method="post">
-            <div>
-          <label class="profile-text13">Старый пароль</label>
-          <input
-            type="password"
-            name="old_password"
-            id="old_password"
-            class="profile-textinput input"
-            required="required"
-          />
-          <label class="profile-text14">Новый пароль</label>
-          <input
-            type="password"
-            name="new_password"
-            id="new_password"
-            class="profile-textinput1 input"
-            required="required"
-          />
-          <label class="profile-text15">Повторите пароль</label>
-          <input
-            type="password"
-            name="new_password_again"
-            id="new_password_again"
-            class="profile-textinput2 input"
-            required="required"
-          />
-            <div>
-            <button
-            id="change_password_button"
-            name="change_password_button"
-            type="submit"
-            class="auth-button button"
-          >
-            <span>
-              <span>Сохранить</span>
-              <br />
-            </span>
-            </button>
-            <button
-            id="back"
-            name="back"
-            type="button"
-            class="auth-button02 button"
-            onclick="history.back()"
-          >
-            <span>
-              <span>Назад</span>
-              <br />
-            </span>
-            </button>
-               <label class="profile-text16">{{message}}</label>
-          </div>
+          <div class="operations-container4">
+              <div class="operations-container5">
+            <table id="CustomersTable" class="table">
+                <thead>
+    <tr>
+        <th class="sortable">ФИО</th>
+        <th class="sortable">Город</th>
+        <th class="sortable">Телефон</th>
+        <th class="sortable">Почта</th>
+    </tr>
+                </thead>
+                <tbody class="table-hover">
+                {% for item in customers %}
+                <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.branch}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.email}}</td>
+    </tr>
+                {% endfor %}
+
+                <tr>
+                </tbody>
+</table>
+                  </div>
               </div>
-          </form>
-        </figure>
       </div>
     </div>
     <script
       defer=""
       src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
     ></script>
+
+
   </body>
 </html>

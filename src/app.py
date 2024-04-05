@@ -12,8 +12,7 @@ from core.config import app_config
 from api.v1.operations import operations_bp
 from api.v1.dashboard import dashboard_bp
 from api.v1.portfolios import portfolio_bp
-# from core.tracing import configure_tracer
-from db.alembic_migrate_init import init_migration_tool
+from api.v1.customers import customers_bp
 from db.pg_db import db, init_db
 from services.auth.jwt_init import init_jwt
 from services.operation.operation_service import update_portfolios
@@ -23,12 +22,11 @@ from flask_apscheduler import APScheduler
 def register_blueprints(app):
     API_V1_PATH = '/api/v1'
     app.register_blueprint(auth_bp, url_prefix=API_V1_PATH + '/auth')
-    # app.register_blueprint(admin_roles_bp, url_prefix=API_V1_PATH + '/admin/roles')
     app.register_blueprint(users_bp, url_prefix=API_V1_PATH + '/user')
     app.register_blueprint(operations_bp, url_prefix=API_V1_PATH + '/operations')
     app.register_blueprint(dashboard_bp, url_prefix=API_V1_PATH + '/dashboard')
     app.register_blueprint(portfolio_bp, url_prefix=API_V1_PATH + '/portfolios')
-    # app.register_blueprint(admin_users_bp, url_prefix=API_V1_PATH + '/admin/users')
+    app.register_blueprint(customers_bp, url_prefix=API_V1_PATH + '/customers')
 
 
 def init_extensions(app):
